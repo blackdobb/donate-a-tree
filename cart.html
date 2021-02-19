@@ -309,19 +309,10 @@
                                     <th class="product_total">Total</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                   <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                    <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a></td>
-                                    <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                    <td class="product-price">£65.00</td>
-                                    <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                    <td class="product_total">£130.00</td>
+                            <tbody id="tbody">
+                               
 
-
-                                </tr>
-
-                                <tr>
+                                <!-- <tr>
                                    <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
                                     <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a></td>
                                     <td class="product_name"><a href="#">Handbags justo</a></td>
@@ -340,7 +331,7 @@
                                     <td class="product_total">£160.00</td>
 
 
-                                </tr>
+                                </tr> -->
 
                             </tbody>
                         </table>   
@@ -509,8 +500,52 @@
 
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
+<script type="text/javascript">
+    $(function(){
+        let a = localStorage.getItem('cart');
+        a=JSON.parse(a);
+        console.log(a);
+        let divs = '';
+        $.each(a,function(index,valur){
+            console.log(index);
+            valur = JSON.parse(valur);
+            console.log('img',valur.img);
+            console.log('valur',valur);
+            // var html = "<a href='#' onclick='onedit(&quot;"+ row.name + "&quot;)';>编辑</a>"  
+            var divs ="<tr><td class='product_remove'><a href='#' onclick='deleteItem(&quot;"+ index + "&quot;)'><i class='fa fa-trash-o'></i></a></td><td class='product_thumb'><a href='#''><img src=" + valur.img + " alt=''></a></td><td class='product_name'><a href='#'>" + valur.Product + "</a></td><td class='product-price'>" + valur.Price + "</td><td class='product_quantity'><label>" + valur.Quantity + "</label> <input min='1' max='100' value='1' type='number'></td><td class='product_total'>£130.00</td></tr>"
+            $('#tbody').append(divs);
+        })
+    })
+    function deleteItem(e){
+        console.log(e);
+        let a = localStorage.getItem('cart');
+        a=JSON.parse(a);
+       
+        let c = [];
+        $.each(a,function(index,valur){
+            if(index == e){
 
+            }else{
+                c.push(valur)
+            }
+        })
+        console.log(c);
+        localStorage.setItem('cart',JSON.stringify(c))
+        let b = localStorage.getItem('cart');
+        console.log('b',b)
+        console.log
+        b=JSON.parse(b)
+        $('#tbody').html('');
+        $.each(b,function(index,valur){
+            console.log(index);
+            // var html = "<a href='#' onclick='onedit(&quot;"+ row.name + "&quot;)';>编辑</a>"  
+            var divs ="<tr onclick='deleteItem(&quot;"+ index + "&quot;)'><td class='product_remove'><a href='#''><i class='fa fa-trash-o'></i></a></td><td class='product_thumb'><a href='#''><img src='assets/img/s-product/product.jpg' alt=''></a></td><td class='product_name'><a href='#''>Handbag fringilla</a></td><td class='product-price'>£65.00</td><td class='product_quantity'><label>Quantity</label> <input min='1' max='100' value='1' type='number'></td><td class='product_total'>£130.00</td></tr>"
+            $('#tbody').append(divs);
+        })
 
+        // alert('1111',e);
+    }
+</script>
 
 </body>
 
